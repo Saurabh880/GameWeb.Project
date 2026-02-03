@@ -1,5 +1,5 @@
-﻿using GameWebAPI.DTO;
-using GameWebAPI.Entites;
+﻿using GameWeb.API.Entities;
+using GameWebAPI.DTO;
 
 namespace GameFrontEnd.Mvc.Service
 {
