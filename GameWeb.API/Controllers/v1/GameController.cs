@@ -1,14 +1,11 @@
-﻿
-using Asp.Versioning;
+﻿using Asp.Versioning;
+using GameManager.Core.DTO;
 using GameWeb.API.DbContextRepo;
-using GameWeb.API.Entities;
 using GameWeb.API.Repository;
-using GameWebAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
+using Services.Helpers;
 
 namespace GameWeb.API.Controllers.v1
 {
@@ -112,6 +109,8 @@ namespace GameWeb.API.Controllers.v1
             {
                 return BadRequest("Invalid genre id.");
             }
+            //Model validations
+            ValidationHelper.ModelValidation(addGame);
 
             var newGame = addGame.ToGame();
             _applicationDb.Games.Add(newGame);
@@ -149,6 +148,8 @@ namespace GameWeb.API.Controllers.v1
             {
                 return NotFound();
             }
+            //validation
+            ValidationHelper.ModelValidation(existing);
 
             // Update properties
             existing.GameName = dto.GameName;

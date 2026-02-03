@@ -1,8 +1,7 @@
-﻿using GameWeb.API.Entities;
-
+﻿using GameManager.Core.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace GameWebAPI.DTO
+namespace GameManager.Core.DTO
 {
     //A DTO is a contract btw client and server
     public class GameReadDTO

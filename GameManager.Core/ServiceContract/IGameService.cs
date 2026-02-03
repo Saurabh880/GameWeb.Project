@@ -1,7 +1,8 @@
-﻿using GameWeb.API.Entities;
-using GameWebAPI.DTO;
+﻿using GameManager.Core.Domain.Entities;
+using GameManager.Core.DTO;
 
-namespace GameFrontEnd.Mvc.Service
+
+namespace GameManager.Core.ServiceContract
 {
     public interface IGameService
     {

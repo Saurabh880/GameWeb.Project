@@ -1,6 +1,6 @@
-﻿using GameWeb.API.Entities;
+﻿using GameManager.Core.Domain.Entities;
 
-namespace GameWeb.API.DTO
+namespace GameManager.Core.DTO
 {
     public class GameDetailsDTO
     {

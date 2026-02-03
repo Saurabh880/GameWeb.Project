@@ -1,4 +1,4 @@
-﻿namespace GameWeb.API.Entities
+﻿namespace GameManager.Core.Domain.Entities
 {
     public class Genre
     {

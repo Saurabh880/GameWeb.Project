@@ -1,6 +1,7 @@
-﻿using GameFrontEnd.Mvc.Service;
-using GameWeb.API.Entities;
-using GameWebAPI.DTO;
+﻿
+using GameManager.Core.Domain.Entities;
+using GameManager.Core.DTO;
+using GameManager.Core.ServiceContract;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;

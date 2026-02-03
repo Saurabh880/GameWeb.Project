@@ -1,8 +1,7 @@
 ﻿using Asp.Versioning;
+using GameManager.Core.DTO;
 using GameWeb.API.DbContextRepo;
-using GameWeb.API.DTO;
 using GameWeb.API.Repository;
-using GameWebAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 

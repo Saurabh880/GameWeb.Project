@@ -1,4 +1,5 @@
 using GameFrontEnd.Mvc.Service;
+using GameManager.Core.ServiceContract;
 using System.Buffers.Text;
 
 var builder = WebApplication.CreateBuilder(args);

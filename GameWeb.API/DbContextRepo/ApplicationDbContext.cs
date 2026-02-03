@@ -1,6 +1,4 @@
-﻿using GameWeb.API.Entities;
-using System.Collections.Generic;
-using System.Reflection.Emit;
+﻿using GameManager.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameWeb.API.DbContextRepo

@@ -1,11 +1,7 @@
-﻿
-using GameWeb.API.DbContextRepo;
-using GameWeb.API.DTO;
-using GameWeb.API.Entities;
-using GameWebAPI.DTO;
+﻿using GameWeb.API.DbContextRepo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System.Linq.Expressions;
+using GameManager.Core.DTO;
 
 namespace GameWeb.API.Repository
 {

@@ -1,8 +1,7 @@
-﻿using GameWeb.API.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using GameManager.Core.Domain.Entities;
 
-using System.ComponentModel.DataAnnotations;
-
-namespace GameWebAPI.DTO
+namespace GameManager.Core.DTO
 {
     public class GameCreateDTO
     {
