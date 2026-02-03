@@ -1,0 +1,43 @@
+﻿
+@model List<GameReadDTO>
+
+<br />
+<div class="container p-4 - border">
+	<div class="row pb-2">
+		<div class="col">
+			<h1 class="text-primary">Games</h1>
+		</div>
+		<div class="col text-end p-1">
+			<a asp-controller="Game" asp-action="CreateGame" class="btn btn-primary">New Game</a>
+		</div>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Game Name</th>
+				<th>Game Price</th>
+				<th>Release Date</th>
+				<th>Genre</th>
+				<th>Image</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var item in Model){
+				<tr>
+					<td>@item.GameName</td>
+					<td>@item.GamePrice</td>
+					<td>@item.ReleaseDate</td>
+					<td>@item.GenreName</td>
+					<td>@item.ImageUri</td>
+					<td>
+					<a asp-controller="Game" asp-action="Details" asp-route-Id="@item.GameId" class="btn btn-primary">Details</a>
+					<a asp-controller="Game" asp-action="Delete" asp-route-Id="@item.GameId" class="btn btn-primary">Delete</a>
+					</td>
+				
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
