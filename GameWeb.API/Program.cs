@@ -36,8 +36,8 @@ builder.Services.AddApiVersioning(config =>
         options.GroupNameFormat = "'v'VVV";//This will format the version in the URL as v1, v2, etc.
     }); ;
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConn")));
+builder.Services.AddDbContext<GameDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnGame")));
 
 builder.Services.AddCors(options =>
 {

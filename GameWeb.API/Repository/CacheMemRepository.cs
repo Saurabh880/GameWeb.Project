@@ -7,12 +7,12 @@ namespace GameWeb.API.Repository
 {
     public class CacheMemRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly GameDbContext _context;
         private readonly IMemoryCache _cache;
         private readonly TimeSpan _cacheExpiration = TimeSpan.FromSeconds(5L);
         private const string GamesCacheKey = "Games";
 
-        public CacheMemRepository(ApplicationDbContext context, IMemoryCache cache)
+        public CacheMemRepository(GameDbContext context, IMemoryCache cache)
         {
             this._context = context;
             this._cache = cache;

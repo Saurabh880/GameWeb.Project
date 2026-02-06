@@ -10,11 +10,11 @@ namespace GameWeb.API.Controllers.v2
     [ApiVersion("2.0")]
     public class GameController : CustomControllerBase
     {
-        private readonly ApplicationDbContext _applicationDb;
+        private readonly GameDbContext _applicationDb;
         private ILogger<GameController> _logger;
         private readonly CacheMemRepository _cachedata;
         public GameController(
-          ApplicationDbContext dbContext,
+          GameDbContext dbContext,
           ILogger<GameController> logger,
           CacheMemRepository cacheMem)
         {

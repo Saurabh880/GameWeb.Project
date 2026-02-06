@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameWeb.API.DbContextRepo
 {
-    public class ApplicationDbContext : DbContext
+    public class GameDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public GameDbContext(DbContextOptions<GameDbContext> options)
           : base((DbContextOptions)options)
         {
         }
 
-        public ApplicationDbContext()
+        public GameDbContext()
         {
         }
 

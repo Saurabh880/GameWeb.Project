@@ -2,7 +2,10 @@ using GameFrontEnd.Mvc.Service;
 using GameManager.Core.Domain.IdentityEntities;
 using GameManager.Core.ServiceContract;
 using GameManager.Infrastructure.DbContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 string baseUrl = "http://localhost:5140/";
@@ -14,9 +17,15 @@ builder.Services.AddHttpClient<IGameService, GameService>(client =>
     client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUrl"]);
 });
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConn"));
+});
+
 //Enable Identity in project
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders()
     .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
     .AddRoleStore<RoleStore<ApplicationRole,ApplicationDbContext,Guid>>();
 

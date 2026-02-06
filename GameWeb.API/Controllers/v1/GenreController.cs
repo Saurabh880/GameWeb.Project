@@ -10,11 +10,11 @@ namespace GameWeb.API.Controllers.v1
     [ApiVersion("1.0")]
     public class GenreController : CustomControllerBase
     {
-        private readonly ApplicationDbContext _applicationDb;
+        private readonly GameDbContext _applicationDb;
         private ILogger<GameController> _logger;
 
         public GenreController(
-          ApplicationDbContext dbContext,
+          GameDbContext dbContext,
           ILogger<GameController> logger)
         {
             _applicationDb = dbContext;
