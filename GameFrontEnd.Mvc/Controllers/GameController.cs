@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 
 namespace GameFrontEnd.Mvc.Controllers
 {
+    [Route("[controller]")]
     public class GameController : Controller
     {
         private  List<Genre> allGenre;
@@ -18,7 +19,7 @@ namespace GameFrontEnd.Mvc.Controllers
         {
             _gameService = gameService;
         }
-
+        [Route("[action]")]
         public async Task<IActionResult> Index()
         {
             try
@@ -31,7 +32,7 @@ namespace GameFrontEnd.Mvc.Controllers
                 return View("Error");
             }
         }
-
+        [Route("[action]")]
         public async Task<IActionResult> CreateGame()
         {
             try
@@ -45,8 +46,9 @@ namespace GameFrontEnd.Mvc.Controllers
                 return View("Error");
             }
         }
-
+        [Route("[action]")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateNewGame(GameCreateDTO createGame)
         {
             if (!ModelState.IsValid)
@@ -67,8 +69,58 @@ namespace GameFrontEnd.Mvc.Controllers
             var success = await _gameService.CreateGameAsync(createGame);
             return success ? RedirectToAction("Index") : View("Error");
         }
+        [Route("[action]/{GameId}")]
+        public async Task<ActionResult<GameReadDTO>> Details(int GameId)
+        {
+            try
+            {
+                var gameDetails = await _gameService.GetGameDetailsAsync(GameId);
+                if(gameDetails == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
+                var genres = await _gameService.GetGenresAsync();
+                ViewBag.Genre = genres;
+                return View("Details", gameDetails);
+            }
+            catch
+            {
+                return View("Error");
+            }
+        }
+        [Route("[action]/{GameId}")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateGame(int gameId, GameUpdateDTO updateGame)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Collect validation errors and pass them to the view
+                ViewBag.Errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
 
+                return View(updateGame); // return the same view with errors
+            }
+
+            if (string.IsNullOrEmpty(updateGame?.GameName))
+            {
+                ModelState.AddModelError("GameName", "Game name can't be null");
+                return View(updateGame);
+            }
+
+            // Call your service layer
+            var updatedGame = await _gameService.UpdateGame(gameId, updateGame);
+
+            if (updatedGame != null)
+            {
+                return RedirectToAction("Index"); // redirect to list page
+            }
+
+            return View("Error"); // show error view if update fails
+        }
         public IActionResult Error()
         {
             return View();

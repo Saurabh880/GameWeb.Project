@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace GameFrontEnd.Mvc.Controllers
 {
+    [Route("[controller]")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -12,7 +13,8 @@ namespace GameFrontEnd.Mvc.Controllers
         {
             _logger = logger;
         }
-
+        [Route("[action]")]
+        [Route("/")]
         public IActionResult Index()
         {
             return View();

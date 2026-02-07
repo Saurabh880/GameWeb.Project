@@ -28,6 +28,7 @@ namespace GameManager.Core.DTO
         [StringLength(10)]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Confim Password can't be blank")]
+        [Compare("Password",ErrorMessage ="Password and Confirm password do not match")]
         public string ConfirmPassword { get; set; }
     }
 }

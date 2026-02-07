@@ -1,6 +1,7 @@
 ﻿@model RegisterDTO
 @{
 	ViewBag.Title = "Register";
+    ViewBag.CurrentUrl = "~/Account/Register";
 }
 <div class="text-grey">
 	<span>Contacts</span>
@@ -34,7 +35,7 @@
 
                         <!-- Name -->
                         <div class="mb-3">
-                            <label asp-for="PersonName" class="form-label"></label>
+                            <label asp-for="PersonName" class="form-label">Person Name</label>
                             <input asp-for="PersonName" class="form-control" />
                             <span asp-validation-for="PersonName" class="text-danger"></span>
                         </div>

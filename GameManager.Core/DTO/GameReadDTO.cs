@@ -15,7 +15,9 @@ namespace GameManager.Core.DTO
         [StringLength(200)]
         public required string ImageUri { get; set; }
         [StringLength(50)]
-        public string? GenreName { get; set; }
+        public int GenreId { get; set; }
+
+        public string Genre { get; set; }
 
 
     }
@@ -31,7 +33,8 @@ namespace GameManager.Core.DTO
                 GamePrice = game.GamePrice,
                 ReleaseDate = game.ReleaseDate,
                 ImageUri = game.ImageUri,
-                GenreName = game.Genre?.Name
+                GenreId = game.GenreId,
+                Genre = game.Genre?.Name
             };
         }
     }   

@@ -43,7 +43,8 @@ namespace GameFrontEnd.Mvc.Controllers
 
             if (result.Succeeded)
             {
-                //Sign In
+                //Sign In - to log in user
+                await _signInManager.SignInAsync(newUser,isPersistent: false);
 
                 return RedirectToAction(nameof(GameController.Index),"Game");
             }

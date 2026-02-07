@@ -2,15 +2,21 @@
 @model List<GameReadDTO>
 @{
 	ViewBag.Title = "Game Index";
+	ViewBag.CurrentUrl = "~/Game/Index";
 }
 <br />
+<div class="text-grey">
+	<span>Games</span>
+	<i class="fa-solid fa-caret-right"></i>
+	<span>Index</span>
+</div>
 <div class="container p-4 - border">
 	<div class="row pb-2">
 		<div class="col">
 			<h1 class="text-primary">Games</h1>
 		</div>
 		<div class="col text-end p-1">
-			<a asp-controller="Game" asp-action="CreateGame" class="btn btn-primary">New Game</a>
+			<a asp-controller="Game" asp-action="CreateGame" class="btn btn-outline-primaryl"><i class="fa-solid fa-pen-to-square"></i> New Game</a>
 		</div>
 	</div>
 
@@ -31,11 +37,16 @@
 					<td>@item.GameName</td>
 					<td>@item.GamePrice</td>
 					<td>@item.ReleaseDate</td>
-					<td>@item.GenreName</td>
+					<td>@item.Genre</td>
 					<td>@item.ImageUri</td>
-					<td>
-					<a asp-controller="Game" asp-action="Details" asp-route-Id="@item.GameId" class="btn btn-primary">Details</a>
-					<a asp-controller="Game" asp-action="Delete" asp-route-Id="@item.GameId" class="btn btn-primary">Delete</a>
+					<td class="text-end">
+						<a asp-controller="Game" asp-action="Details" asp-route-GameId="@item.GameId" class="btn btn-outline-success">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</a>
+
+						<a asp-controller="Game" asp-action="Delete" asp-route-GameId="@item.GameId" class="btn btn-outline-danger">
+							<i class="fa-solid fa-trash-can"></i>
+						</a>
 					</td>
 				
 				</tr>

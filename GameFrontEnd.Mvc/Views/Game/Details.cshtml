@@ -1,26 +1,27 @@
-﻿@model GameUpdateDTO
+﻿@model GameReadDTO
 @{
-    ViewBag.Title = "Create Game";
-    ViewBag.CurrentUrl = "~/Game/Create";
+    ViewBag.Title = "Game Details";
+    ViewBag.CurrentUrl = "~/Game/Details";
 }
 <div class="text-grey">
     <span>Games</span>
     <i class="fa-solid fa-caret-right"></i>
-    <span>Create</span>
+    <span>Details</span>
 </div>
-<form asp-action="CreateNewGame" method="post">
-	<br />
+<form asp-action="UpdateGame" method="post">
+    <br />
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
 
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">🎮 New Game Details</h4>
+                        <h4 class="mb-0">🎮 Game Details</h4>
                     </div>
 
                     <div class="card-body">
                         <form method="post">
+                            <input type="hidden" asp-for=GameId" />
                             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                             <!-- Game Name -->
@@ -72,7 +73,7 @@
                             <!-- Buttons -->
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-success px-4">
-                                    Submit
+                                    Update
                                 </button>
 
                                 <a asp-action="Index"

@@ -95,13 +95,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHsts();
-app.UseHttpsRedirection();
+// Routing must come before authentication/authorization
+app.UseRouting();
 
-app.UseCors("AllowSpecificOrigin"); // corrected to match the policy name
+// CORS should be placed after routing but before authentication
+app.UseCors("AllowSpecificOrigin");
+
+// Authentication first, then Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
+// Rate limiting or other custom middleware
 app.UseRateLimiter();
-
 
 try
 {

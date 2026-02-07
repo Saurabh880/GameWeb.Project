@@ -130,7 +130,11 @@ namespace GameWeb.API.Controllers.v1
 
 
         [HttpPut("{gameId}")]
-        public async Task<IActionResult> UpdateGame(int gameId, GameUpdateDTO dto)
+        [ProducesResponseType(typeof(GameReadDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public async Task<ActionResult<GameReadDTO>> UpdateGame(int gameId, GameUpdateDTO dto)
         {
             if (dto == null || gameId != dto.GameId)
             {
@@ -163,7 +167,9 @@ namespace GameWeb.API.Controllers.v1
             // Clear cache so fresh data will be retrieved next time
             _cachedata.RemoveGamesFromCache();
 
-            return NoContent();
+            var updatedDto = existing.ToGameRead();
+            return Ok(updatedDto);
+
         }
 
 

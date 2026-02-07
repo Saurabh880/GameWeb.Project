@@ -40,5 +40,28 @@ namespace GameFrontEnd.Mvc.Service
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<GameReadDTO> GetGameDetailsAsync(int Id)
+        {
+            var response = await _httpClient.GetAsync($"api/v1/Game/details/{Id}");
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<GameReadDTO>(result);
+        }
+
+        public async Task<GameReadDTO> UpdateGame(int gameId, GameUpdateDTO gameUpdate)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"api/v1/Game/{gameId}", gameUpdate);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var updatedGame = await response.Content.ReadFromJsonAsync<GameReadDTO>();
+                return updatedGame!;
+            }
+
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new HttpRequestException(
+                $"Failed to update game {gameId}. Status: {response.StatusCode}, Details: {errorContent}");
+        }
+
     }
 }

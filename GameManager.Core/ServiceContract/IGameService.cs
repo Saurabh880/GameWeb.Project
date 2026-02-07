@@ -9,6 +9,9 @@ namespace GameManager.Core.ServiceContract
         Task<List<GameReadDTO>> GetGamesAsync();
         Task<List<Genre>> GetGenresAsync();
         Task<bool> CreateGameAsync(GameCreateDTO createGame);
+
+        Task<GameReadDTO> GetGameDetailsAsync(int Id);
+        Task<GameReadDTO> UpdateGame(int gameId,GameUpdateDTO updateGame); 
     }
 
 }
