@@ -64,18 +64,21 @@
 					</ul>
 
 					<!-- Right side auth links -->
-					<ul class="navbar-nav">
+					<ul class="navbar-nav ms-auto">
 						@if (User.Identity.IsAuthenticated)
 						{
 							<li class="nav-item">
-								<i class="fa-solid fa-user nav-link text-dark">@User.Identity?.Name</i>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark"
-								   asp-controller="Account"
-								   asp-action="Logout">
-									Logout
-								</a>
+								<div class="d-flex align-items-center gap-3">
+									<i class="fa-solid fa-user text-dark"></i>
+									<span class="text-dark fw-semibold">
+										@User.Identity?.Name
+									</span>
+									<a class="btn btn-outline-danger btn-sm"
+									   asp-controller="Account"
+									   asp-action="Logout">
+										Logout
+									</a>
+								</div>
 							</li>
 						}
 						else

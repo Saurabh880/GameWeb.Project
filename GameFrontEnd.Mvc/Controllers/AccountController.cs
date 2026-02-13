@@ -2,6 +2,7 @@
 using GameManager.Core.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace GameFrontEnd.Mvc.Controllers
 {
@@ -26,7 +27,7 @@ namespace GameFrontEnd.Mvc.Controllers
         {
             //Check for validation error
             //Lecture 336 - User Manager
-            if(ModelState.IsValid == false)
+            if (ModelState.IsValid == false)
             {
                 ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
                 return View(registerUser);
@@ -39,24 +40,54 @@ namespace GameFrontEnd.Mvc.Controllers
                 PersonName = registerUser.PersonName
             };
             //Register User and Save Data to Identity DB
-            IdentityResult result =  await _userManager.CreateAsync(newUser, registerUser.Password);
+            IdentityResult result = await _userManager.CreateAsync(newUser, registerUser.Password);
 
             if (result.Succeeded)
             {
                 //Sign In - to log in user
-                await _signInManager.SignInAsync(newUser,isPersistent: false);
+                await _signInManager.SignInAsync(newUser, isPersistent: false);
 
-                return RedirectToAction(nameof(GameController.Index),"Game");
+                return RedirectToAction(nameof(GameController.Index), "Game");
             }
             else
             {
                 foreach (IdentityError error in result.Errors)
                 {
-                    ModelState.AddModelError("Resgister ",error.Description);
+                    ModelState.AddModelError("Resgister ", error.Description);
                 }
             }
 
             return View(registerUser);
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(GameController.Index), "Game");
+        }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        {
+            if(!ModelState.IsValid )
+            {
+                ViewBag.Errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
+                return View(loginDTO);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password, isPersistent: false,
+                lockoutOnFailure: false);
+
+            if(result.Succeeded)
+            {
+                return RedirectToAction(nameof(GameController.Index),"Game");
+            }
+
+            ModelState.AddModelError("Login","Invalid Email or Password");
+            return View(loginDTO);
         }
     }
 }

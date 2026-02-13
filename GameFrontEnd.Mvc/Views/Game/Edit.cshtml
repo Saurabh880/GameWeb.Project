@@ -1,0 +1,99 @@
+﻿@model GameReadDTO
+@{
+	ViewBag.Title = "Game Edit";
+	ViewBag.CurrentUrl = "~/Game/Edit";
+}
+<div class="text-grey">
+	<span>Games</span>
+	<i class="fa-solid fa-caret-right"></i>
+	<span>Edit</span>
+</div>
+<form asp-controller="Game"
+	  asp-action="UpdateGame"
+	  asp-route-id="@Model.GameId"
+	  method="post">
+
+	@Html.AntiForgeryToken()
+	<br />
+	<div class="container mt-4">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+
+				<div class="card shadow-sm border-0">
+					<div class="card-header bg-primary text-white">
+						<h4 class="mb-0">🎮 Game Edit</h4>
+					</div>
+
+					<div class="card-body">
+
+						<input type="hidden" asp-for="GameId" />
+						<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+						<!-- Game Name -->
+						<div class="mb-3">
+							<label asp-for="GameName" class="form-label"></label>
+							<input asp-for="GameName" class="form-control" />
+							<span asp-validation-for="GameName" class="text-danger"></span>
+						</div>
+
+						<!-- Game Price -->
+						<div class="mb-3">
+							<label asp-for="GamePrice" class="form-label"></label>
+							<input asp-for="GamePrice" class="form-control" />
+							<span asp-validation-for="GamePrice" class="text-danger"></span>
+						</div>
+
+						<!-- Release Date -->
+						<div class="mb-3">
+							<label asp-for="ReleaseDate" class="form-label"></label>
+							<input asp-for="ReleaseDate" class="form-control" type="date" />
+							<span asp-validation-for="ReleaseDate" class="text-danger"></span>
+						</div>
+						<!-- Genre -->
+						<div class="mb-3">
+							<label asp-for="GenreId"
+								   class="form-label">Genre Type</label>
+
+							<select asp-for="GenreId"
+									class="form-select">
+								<option value="">Please Select</option>
+								@foreach (var genre in ViewBag.Genre)
+								{
+									<option value="@genre.GenreId">
+										@genre.Name
+									</option>
+								}
+							</select>
+
+							<span asp-validation-for="GenreId"
+								  class="text-danger"></span>
+						</div>
+
+						<!-- Image URL -->
+						<div class="mb-4">
+							<label asp-for="ImageUri" class="form-label"></label>
+							<input asp-for="ImageUri" class="form-control" />
+							<span asp-validation-for="ImageUri" class="text-danger"></span>
+						</div>
+
+						<!-- Buttons -->
+						<div class="d-flex justify-content-between">
+							<button type="submit" class="btn btn-success px-4">
+								Update
+							</button>
+
+							<a asp-action="Index"
+							   asp-controller="Game"
+							   class="btn btn-outline-secondary px-4">
+								Back
+							</a>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</form>

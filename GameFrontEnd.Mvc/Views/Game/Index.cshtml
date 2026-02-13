@@ -1,5 +1,4 @@
-﻿
-@model List<GameReadDTO>
+﻿@model List<GameReadDTO>
 @{
 	ViewBag.Title = "Game Index";
 	ViewBag.CurrentUrl = "~/Game/Index";
@@ -20,7 +19,7 @@
 		</div>
 	</div>
 
-	<table class="table">
+	<table class="table table-striped table-hover align-middle">
 		<thead>
 			<tr>
 				<th>Game Name</th>
@@ -28,29 +27,62 @@
 				<th>Release Date</th>
 				<th>Genre</th>
 				<th>Image</th>
-				
+
 			</tr>
 		</thead>
 		<tbody>
-			@foreach(var item in Model){
+			@foreach (var item in Model)
+			{
 				<tr>
 					<td>@item.GameName</td>
-					<td>@item.GamePrice</td>
-					<td>@item.ReleaseDate</td>
-					<td>@item.Genre</td>
-					<td>@item.ImageUri</td>
-					<td class="text-end">
-						<a asp-controller="Game" asp-action="Details" asp-route-GameId="@item.GameId" class="btn btn-outline-success">
-							<i class="fa-solid fa-pen-to-square"></i>
-						</a>
 
-						<a asp-controller="Game" asp-action="Delete" asp-route-GameId="@item.GameId" class="btn btn-outline-danger">
-							<i class="fa-solid fa-trash-can"></i>
-						</a>
+					<td>$ @item.GamePrice</td>
+
+					<td>
+						@item.ReleaseDate.ToString("dd MMM yyyy")
 					</td>
-				
+
+					<td>
+						@item.Genre
+					</td>
+
+					<td>
+						<img src="@item.ImageUri"
+							 alt="Game Image"
+							 width="60"
+							 height="60"
+							 class="rounded shadow-sm" />
+					</td>
+
+					<td class="text-end">
+						<div class="d-flex justify-content-end gap-2">
+
+							<a asp-controller="Game"
+							   asp-action="Details"
+							   asp-route-GameId="@item.GameId"
+							   class="btn btn-outline-primary btn-sm">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+
+							<a asp-controller="Game"
+							   asp-action="Edit"
+							   asp-route-GameId="@item.GameId"
+							   class="btn btn-outline-success btn-sm">
+								<i class="fa-solid fa-pen-to-square"></i>
+							</a>
+
+							<a asp-controller="Game"
+							   asp-action="Delete"
+							   asp-route-GameId="@item.GameId"
+							   class="btn btn-outline-danger btn-sm">
+								<i class="fa-solid fa-trash-can"></i>
+							</a>
+
+						</div>
+					</td>
 				</tr>
 			}
 		</tbody>
+
 	</table>
 </div>

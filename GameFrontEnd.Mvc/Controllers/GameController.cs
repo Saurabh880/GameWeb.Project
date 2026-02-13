@@ -69,30 +69,51 @@ namespace GameFrontEnd.Mvc.Controllers
             var success = await _gameService.CreateGameAsync(createGame);
             return success ? RedirectToAction("Index") : View("Error");
         }
-        [Route("[action]/{GameId}")]
+        [HttpGet("Details/{GameId}")]
+
         public async Task<ActionResult<GameReadDTO>> Details(int GameId)
         {
             try
             {
-                var gameDetails = await _gameService.GetGameDetailsAsync(GameId);
-                if(gameDetails == null)
-                {
-                    return RedirectToAction("Index");
-                }
+                var game = await _gameService.GetGameDetailsAsync(GameId);
+                if (game == null) return RedirectToAction("Index");
 
                 var genres = await _gameService.GetGenresAsync();
                 ViewBag.Genre = genres;
-                return View("Details", gameDetails);
+
+                return View(game); // model passed to view
+
             }
-            catch
+            catch (Exception ex)
             {
                 return View("Error");
             }
+
         }
-        [Route("[action]/{GameId}")]
+
+        [HttpGet("Edit/{GameId}")]
+
+        public async Task<ActionResult<GameReadDTO>> Edit(int GameId)
+        {
+            try
+            {
+                var (game, genres) = await LoadGameAndGenres(GameId);
+                if (game == null) return RedirectToAction("Index");
+
+                ViewBag.Genre = genres;
+                return View("Edit", game);
+            }
+            catch (Exception ex)
+            {               
+                return View("Error");
+            }
+
+        }
+
+        [HttpPost("UpdateGame/{id}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateGame(int gameId, GameUpdateDTO updateGame)
+        public async Task<IActionResult> UpdateGame(int GameId, GameUpdateDTO updateGame)
         {
             if (!ModelState.IsValid)
             {
@@ -112,7 +133,7 @@ namespace GameFrontEnd.Mvc.Controllers
             }
 
             // Call your service layer
-            var updatedGame = await _gameService.UpdateGame(gameId, updateGame);
+            var updatedGame = await _gameService.UpdateGame(GameId, updateGame);
 
             if (updatedGame != null)
             {
@@ -125,5 +146,12 @@ namespace GameFrontEnd.Mvc.Controllers
         {
             return View();
         }
+        private async Task<(GameReadDTO game, List<Genre> genres)> LoadGameAndGenres(int id)
+        {
+            var game = await _gameService.GetGameDetailsAsync(id);
+            var genres = await _gameService.GetGenresAsync();
+            return (game, genres);
+        }
+
     }
 }
