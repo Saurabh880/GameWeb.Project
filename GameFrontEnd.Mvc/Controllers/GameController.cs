@@ -2,6 +2,7 @@
 using GameManager.Core.Domain.Entities;
 using GameManager.Core.DTO;
 using GameManager.Core.ServiceContract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -19,6 +20,8 @@ namespace GameFrontEnd.Mvc.Controllers
         {
             _gameService = gameService;
         }
+
+        [AllowAnonymous]
         [Route("[action]")]
         public async Task<IActionResult> Index()
         {
@@ -46,6 +49,7 @@ namespace GameFrontEnd.Mvc.Controllers
                 return View("Error");
             }
         }
+        
         [Route("[action]")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,8 +73,8 @@ namespace GameFrontEnd.Mvc.Controllers
             var success = await _gameService.CreateGameAsync(createGame);
             return success ? RedirectToAction("Index") : View("Error");
         }
+        
         [HttpGet("Details/{GameId}")]
-
         public async Task<ActionResult<GameReadDTO>> Details(int GameId)
         {
             try
@@ -92,7 +96,6 @@ namespace GameFrontEnd.Mvc.Controllers
         }
 
         [HttpGet("Edit/{GameId}")]
-
         public async Task<ActionResult<GameReadDTO>> Edit(int GameId)
         {
             try
@@ -110,7 +113,7 @@ namespace GameFrontEnd.Mvc.Controllers
 
         }
 
-        [HttpPost("UpdateGame/{id}")]
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateGame(int GameId, GameUpdateDTO updateGame)

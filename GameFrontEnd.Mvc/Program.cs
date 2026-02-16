@@ -2,6 +2,7 @@ using GameFrontEnd.Mvc.Service;
 using GameManager.Core.Domain.IdentityEntities;
 using GameManager.Core.ServiceContract;
 using GameManager.Infrastructure.DbContext;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,17 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options
     .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
     .AddRoleStore<RoleStore<ApplicationRole,ApplicationDbContext,Guid>>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();//Enforce Authorization Policy for all the action methods
+
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "~/Account/Login";
+});
+
 var app = builder.Build();
 
 
@@ -52,12 +64,12 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
-app.UseRouting();
+app.UseRouting();//Identigying action method based on route
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication();//Reading Identity Cookie
+app.UseAuthorization();//Validates access permissions of the user
 
-app.MapControllers();
+app.MapControllers();//Execute the filter pipeline
 
 
 app.Run();

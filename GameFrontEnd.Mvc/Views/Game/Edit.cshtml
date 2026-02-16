@@ -8,10 +8,7 @@
 	<i class="fa-solid fa-caret-right"></i>
 	<span>Edit</span>
 </div>
-<form asp-controller="Game"
-	  asp-action="UpdateGame"
-	  asp-route-id="@Model.GameId"
-	  method="post">
+<form asp-action="UpdateGame" method="post">
 
 	@Html.AntiForgeryToken()
 	<br />

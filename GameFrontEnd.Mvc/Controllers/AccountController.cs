@@ -1,5 +1,6 @@
 ﻿using GameManager.Core.Domain.IdentityEntities;
 using GameManager.Core.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -7,6 +8,7 @@ using Microsoft.Identity.Client;
 namespace GameFrontEnd.Mvc.Controllers
 {
     [Route("[controller]/[action]")]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -59,11 +61,7 @@ namespace GameFrontEnd.Mvc.Controllers
 
             return View(registerUser);
         }
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(GameController.Index), "Game");
-        }
+       
         [HttpGet]
         public IActionResult Login()
         {
@@ -88,6 +86,11 @@ namespace GameFrontEnd.Mvc.Controllers
 
             ModelState.AddModelError("Login","Invalid Email or Password");
             return View(loginDTO);
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(GameController.Index), "Game");
         }
     }
 }
