@@ -112,7 +112,6 @@ namespace GameFrontEnd.Mvc.Controllers
             }
 
         }
-
        
         [HttpPost]
         [ValidateAntiForgeryToken]

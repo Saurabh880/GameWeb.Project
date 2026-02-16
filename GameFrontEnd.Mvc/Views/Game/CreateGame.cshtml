@@ -8,7 +8,7 @@
     <i class="fa-solid fa-caret-right"></i>
     <span>Create</span>
 </div>
-<form asp-action="CreateNewGame" method="post">
+<form asp-action="CreateNewGame" method="post" enctype="multipart/form-data">
 	<br />
     <div class="container mt-4">
         <div class="row justify-content-center">
@@ -68,7 +68,12 @@
                                 <input asp-for="ImageUri" class="form-control" />
                                 <span asp-validation-for="ImageUri" class="text-danger"></span>
                             </div>
-
+                            <div class="mb-3">
+                                <label class="form-label">Upload Image</label>
+                                <input type="file"
+                                       asp-for="ImageFile"
+                                       class="form-control" />
+                            </div>
                             <!-- Buttons -->
                             <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-success px-4">

@@ -1,4 +1,5 @@
 ﻿using GameManager.Core.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace GameManager.Core.DTO
@@ -23,7 +24,7 @@ namespace GameManager.Core.DTO
         [Url]
         [StringLength(200)]
         public required string ImageUri { get; set; }
-
+        public IFormFile? ImageFile { get; set; }
         // Now ToGame doesn’t need a parameter
         public Game ToGame()
         {

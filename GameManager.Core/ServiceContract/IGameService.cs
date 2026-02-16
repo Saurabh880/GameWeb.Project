@@ -11,7 +11,8 @@ namespace GameManager.Core.ServiceContract
         Task<bool> CreateGameAsync(GameCreateDTO createGame);
 
         Task<GameReadDTO> GetGameDetailsAsync(int Id);
-        Task<GameReadDTO> UpdateGame(int gameId,GameUpdateDTO updateGame); 
+        Task<GameReadDTO> UpdateGame(int gameId,GameUpdateDTO updateGame);
+        Task<bool> CreateGenreAsync(Genre genre);
     }
 
 }

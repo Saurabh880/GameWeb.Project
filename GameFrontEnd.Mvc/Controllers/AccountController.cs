@@ -68,7 +68,7 @@ namespace GameFrontEnd.Mvc.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginDTO loginDTO, string? ReturnUrl)
         {
             if(!ModelState.IsValid )
             {
@@ -81,6 +81,12 @@ namespace GameFrontEnd.Mvc.Controllers
 
             if(result.Succeeded)
             {
+                //Retunr URL
+                if(!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+                {
+                    //Local Redirection
+                    return LocalRedirect(ReturnUrl);
+                }
                 return RedirectToAction(nameof(GameController.Index),"Game");
             }
 

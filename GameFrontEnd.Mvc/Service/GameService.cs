@@ -63,5 +63,10 @@ namespace GameFrontEnd.Mvc.Service
                 $"Failed to update game {gameId}. Status: {response.StatusCode}, Details: {errorContent}");
         }
 
+        public async Task<bool> CreateGenreAsync(Genre genre)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/v1/Genre", genre);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

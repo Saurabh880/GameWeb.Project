@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using GameManager.Core.Domain.Entities;
+﻿using GameManager.Core.Domain.Entities;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameManager.Core.DTO
 {
@@ -15,7 +16,7 @@ namespace GameManager.Core.DTO
         [Url]
         [StringLength(200)]
         public required string ImageUri { get; set; }
-
+        public IFormFile? ImageFile { get; set; }
         public Game ToGame()
         {
             return new Game

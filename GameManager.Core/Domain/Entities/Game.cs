@@ -20,7 +20,8 @@ namespace GameManager.Core.Domain.Entities
         [Url]
         [StringLength(200)]
         public required string ImageUri { get; set; }
-
+        public byte[]? ImageData { get; set; }
+        public string? ImageContentType { get; set; }
         public Genre? Genre { get; set; }
     }
 }
